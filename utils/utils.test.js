@@ -37,7 +37,6 @@ it('should square a number', () => {
 });
 
 it('should expect some value', () => {
-
         // toNotBe: (ver:1.20), e.g. expect(12).toNotBe(11);
         // not.toBe: (ver: 21.0 or later), Asserts that object is not strictly equal to value using ===.
         expect(12).not.toBe(11);
@@ -68,4 +67,22 @@ it('should verify first and last name are set', () => {
     var user = {};
     var res = utils.setName(user, 'Andric Yeh');
     expect(res).toMatchObject({firstName: 'Andric', lastName: 'Yeh'});
+});
+
+/*
+Mocha - support async function with 'done' parameter.
+        use done when we're doing something synchronous inside of our tests.
+*/
+it('should async add two number', (done) => {
+    utils.asyncAdd(3, 4, (sum) => {
+        expect(sum).toBe(7);
+        done();
+    });
+});
+
+it('should async square a number', (done) => {
+    utils.asyncSquare(5, (res) => {
+        expect(res).toBe(25);
+        done();
+    });
 });
