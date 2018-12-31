@@ -57,10 +57,11 @@ it('should expect some value', () => {
 
         // toExclude(): (ver:1.20), Asserts that a given value is not included (or "contained") within another.
         // e.g. expect[1, 2, ,3]).toExclude(5);
-        expect([1,2, 3]).not.toContain(5);
+        expect([1, 2, 3]).not.toContain(5);
 
         // arrayContaining(): matches a received array which contains all of the elements in the expected array.
-        expect([1, 2, 3]).toEqual(expect.arrayContaining([3]));
+        // it means the 1 and 3 should be in the expected result array.
+        expect([1, 2, 3]).toEqual(expect.arrayContaining([1, 3]));
 });
 
 it('should verify first and last name are set', () => {
