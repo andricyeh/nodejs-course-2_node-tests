@@ -7,33 +7,60 @@ const expect = require('expect');
 
 const utils = require('./utils');
 
-it('should add two numbers', () => {
-    var res = utils.add(33, 11);
+/*
+describe() are:
+ - commonly known as test suites, which contains test cases
+ - merely groups, and you can have groups within groups
+*/
+describe('Utils', () => {
+    it('should add two numbers', () => {
+        var res = utils.add(33, 11);
 
-    /*
-    throw exception to represent test failure.
-    */
-    // if (res !== 44) {
-    //     throw Error(`Expected 44, but got ${res}`);
-    // }
+        /*
+        throw exception to represent test failure.
+        */
+        // if (res !== 44) {
+        //     throw Error(`Expected 44, but got ${res}`);
+        // }
 
-    // toBe: Asserts that object is strictly equal to value using ===.
-    expect(res).toBe(44);
+        // toBe: Asserts that object is strictly equal to value using ===.
+        expect(res).toBe(44);
 
-    // toBeA(string): Asserts the typeof the given object is string. (it )
-    // expect(res).toBeA('number'); ==> it is only used for 1.20, not supported in 21.0 or later.
-    expect(typeof res).toBe('number');
-});
+        // toBeA(string): Asserts the typeof the given object is string. (it )
+        // expect(res).toBeA('number'); ==> it is only used for 1.20, not supported in 21.0 or later.
+        expect(typeof res).toBe('number');
+    });
 
-it('should square a number', () => {
-    var res = utils.square(25);
+    it('should square a number', () => {
+        var res = utils.square(25);
 
-    // if (res !== 625) {
-    //     throw Error(`Expected 625, but got ${res}`);
-    // }
+        // if (res !== 625) {
+        //     throw Error(`Expected 625, but got ${res}`);
+        // }
 
-    expect(res).toBe(625);
-    expect(typeof res).toBe('number');
+        expect(res).toBe(625);
+        expect(typeof res).toBe('number');
+    });
+
+    describe('#async', () => {
+        /*
+        Mocha - support async function with 'done' parameter.
+                use done when we're doing something synchronous inside of our tests.
+        */
+        it('should async add two number', (done) => {
+            utils.asyncAdd(3, 4, (sum) => {
+                expect(sum).toBe(7);
+                done();
+            });
+        });
+
+        it('should async square a number', (done) => {
+            utils.asyncSquare(5, (res) => {
+                expect(res).toBe(25);
+                done();
+            });
+        });
+    });
 });
 
 it('should expect some value', () => {
@@ -68,22 +95,4 @@ it('should verify first and last name are set', () => {
     var user = {};
     var res = utils.setName(user, 'Andric Yeh');
     expect(res).toMatchObject({firstName: 'Andric', lastName: 'Yeh'});
-});
-
-/*
-Mocha - support async function with 'done' parameter.
-        use done when we're doing something synchronous inside of our tests.
-*/
-it('should async add two number', (done) => {
-    utils.asyncAdd(3, 4, (sum) => {
-        expect(sum).toBe(7);
-        done();
-    });
-});
-
-it('should async square a number', (done) => {
-    utils.asyncSquare(5, (res) => {
-        expect(res).toBe(25);
-        done();
-    });
 });
